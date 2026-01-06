@@ -1,0 +1,431 @@
+<HTML lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>APEL STAF</title>
+        <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      rel="stylesheet"
+    />
+        <style type="text/css">
+            #send_form {
+                color: #fff;
+                background: #4e4e4e;
+                text-decoration: none;
+                display: block;
+                padding: 10px 25px;
+                border-radius: .3rem;
+                font-weight: 700;
+                letter-spacing: .5px;
+                font-size: 15px;
+                float: right;
+                margin-top: auto;
+            }
+
+        </style>
+
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+         <!-- untuk auto complate -->
+         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+         <link rel="stylesheet" href="/resources/demos/style.css">
+         <script src="https://code.jquery.com/jquery-3.6.0.js"></script> 
+         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+         <!-- untuk auto complate -->
+    </head>
+    
+    <div class="container-sm">
+           <body style="background-color:rgb(255, 255, 255);">
+            <h1>APEL STAF</h1>
+            <form>
+                
+                <fieldset class="form-group border p-3">
+               <div class="mb-3">
+                    <label for="hari" class="form-label">Pilih hari</label>
+                    <input type="text" class="form-control" id="hari" name="hari" placeholder="klik unutk memilih hari">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.id.min.js"></script>
+                    <script>
+                        $(document).ready(function(){
+                        $('#hari').datepicker({
+                            format: 'DD',
+                            language: 'id', 
+                            autoclose: true
+                        }); 
+                        $('#hari').datepicker('setDate', new Date())                         
+                        });
+                    </script>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tanggal" class="form-label">Pilih Tanggal</label>
+                    <input type="text" class="form-control" id="tanggal" name="tanggal" placeholder="klik unutk memilih tanggal">
+                     <script>
+                        $(document).ready(function(){
+                        $('#tanggal').datepicker({
+                            format: 'dd MM yyyy',
+                            language: 'id', 
+                            autoclose: true
+                        }); 
+                        $('#tanggal').datepicker('setDate', new Date())                         
+                        });
+                    </script>
+                </div>   
+                <div class="mb-3">
+                    <label class="form-label">Jumlah Pegawai</label>
+                    <input type="number" class="form-control" id="jumlah_pegawai" value="60" oninput="hitungApel()">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Pejabat Struktural</label>
+                    <input type="number" class="form-control" id="pejabat_struktural" value="0" oninput="hitungApel()">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Staff</label>
+                    <input type="number" class="form-control" id="staff" value="0" oninput="hitungApel()">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Petugas Keamanan</label>
+                    <input type="number" class="form-control" id="petugas_keamanan" value="0" oninput="hitungApel()">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">BKO NK</label>
+                    <input type="number" class="form-control" id="bko_nk" value="0" oninput="hitungApel()">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Poltekip</label>
+                    <input type="number" class="form-control" id="poltekip" value="0" oninput="hitungApel()">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">CPNS</label>
+                    <input type="number" class="form-control" id="cpns" value="0" oninput="hitungApel()">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Magang</label>
+                    <input type="number" class="form-control" id="magang" value="0" oninput="hitungApel()">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Hadir Apel</label>
+                    <input type="number" class="form-control" id="hadir_apel" value="0" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tidak Apel</label>
+                    <input type="number" class="form-control" id="tidak_apel" value="0" readonly>
+                </div>
+
+                <script>
+                    function hitungApel() {
+                        // Ambil semua nilai input
+                        var totalPegawai = parseInt(document.getElementById("jumlah_pegawai").value) || 0;
+                        var pejabat = parseInt(document.getElementById("pejabat_struktural").value) || 0;
+                        var staff = parseInt(document.getElementById("staff").value) || 0;
+                        var keamanan = parseInt(document.getElementById("petugas_keamanan").value) || 0;
+                        var bko = parseInt(document.getElementById("bko_nk").value) || 0;
+                        var poltekip = parseInt(document.getElementById("poltekip").value) || 0;
+                        var cpns = parseInt(document.getElementById("cpns").value) || 0;
+                        var magang = parseInt(document.getElementById("magang").value) || 0;
+
+                        // Hitung total hadir apel
+                        var totalHadir = pejabat + staff + keamanan + bko + poltekip + cpns + magang;
+
+                        // Hitung tidak apel
+                        var hasilTidakApel = totalPegawai - totalHadir;
+
+                        // Tampilkan hasil
+                        document.getElementById("hadir_apel").value = totalHadir;
+                        document.getElementById("tidak_apel").value = hasilTidakApel;
+                    }
+                </script>
+
+
+              <h2 class="text-center fw-bold" style="margin-bottom:20px;"> KETERANGAN </h2>
+
+                <div class="mb-3">
+                    <label class="form-label">Terlambat</label>
+                    <input type="number" class="form-control" id="terlambat" value="0" 
+                        oninput="cekInput('terlambat','ket_terlambat')">
+                </div>
+                <div class="mb-3" id="ket_terlambat" style="display:none;">
+                    <label class="form-label">Keterangan</label>
+                    <textarea class="form-control" id="ket_terlambat_text" rows="3" 
+                            placeholder="Tuliskan alasan keterlambatan..."></textarea>
+                </div>
+
+                <!-- Lepas Piket -->
+                <div class="mb-3">
+                    <label class="form-label">Lepas Piket</label>
+                    <input type="number" class="form-control" id="lepas_piket" value="0" 
+                        oninput="cekInput('lepas_piket','ket_lepas_piket')">
+                </div>
+                <div class="mb-3" id="ket_lepas_piket" style="display:none;">
+                    <label class="form-label">Keterangan Lepas Piket</label>
+                    <textarea class="form-control" id="ket_lepas_piket_text" rows="3" 
+                            placeholder="Tuliskan alasan lepas piket..."></textarea>
+                </div>
+
+                <!-- Sakit -->
+                <div class="mb-3">
+                    <label class="form-label">Sakit</label>
+                    <input type="number" class="form-control" id="sakit" value="0" 
+                        oninput="cekInput('sakit','ket_sakit')">
+                </div>
+                <div class="mb-3" id="ket_sakit" style="display:none;">
+                    <label class="form-label">Keterangan Sakit</label>
+                    <textarea class="form-control" id="ket_sakit_text" rows="3" 
+                            placeholder="Tuliskan keterangan sakit..."></textarea>
+                </div>
+
+                <!-- Cuti -->
+                <div class="mb-3">
+                    <label class="form-label">Cuti</label>
+                    <input type="number" class="form-control" id="cuti" value="0" 
+                        oninput="cekInput('cuti','ket_cuti')">
+                </div>
+                <div class="mb-3" id="ket_cuti" style="display:none;">
+                    <label class="form-label">Keterangan Cuti</label>
+                    <textarea class="form-control" id="ket_cuti_text" rows="3" 
+                            placeholder="Tuliskan keterangan cuti..."></textarea>
+                </div>
+
+                <!-- Izin -->
+                <div class="mb-3">
+                    <label class="form-label">Izin</label>
+                    <input type="number" class="form-control" id="izin" value="0" 
+                        oninput="cekInput('izin','ket_izin')">
+                </div>
+                <div class="mb-3" id="ket_izin" style="display:none;">
+                    <label class="form-label">Keterangan Izin</label>
+                    <textarea class="form-control" id="ket_izin_text" rows="3" 
+                            placeholder="Tuliskan keterangan izin..."></textarea>
+                </div>
+
+                <!-- Bantuan Jaga -->
+                <div class="mb-3">
+                    <label class="form-label">Bantuan Jaga</label>
+                    <input type="number" class="form-control" id="bantuan_jaga" value="0" 
+                        oninput="cekInput('bantuan_jaga','ket_bantuan_jaga')">
+                </div>
+                <div class="mb-3" id="ket_bantuan_jaga" style="display:none;">
+                    <label class="form-label">Keterangan Bantuan Jaga</label>
+                    <textarea class="form-control" id="ket_bantuan_jaga_text" rows="3" 
+                            placeholder="Tuliskan keterangan bantuan jaga..."></textarea>
+                </div>
+
+                <!-- Piket Siang -->
+                <div class="mb-3">
+                    <label class="form-label">Piket Siang</label>
+                    <input type="number" class="form-control" id="piket_siang" value="0" 
+                        oninput="cekInput('piket_siang','ket_piket_siang')">
+                </div>
+                <div class="mb-3" id="ket_piket_siang" style="display:none;">
+                    <label class="form-label">Keterangan Piket Siang</label>
+                    <textarea class="form-control" id="ket_piket_siang_text" rows="3" 
+                            placeholder="Tuliskan keterangan piket siang..."></textarea>
+                </div>
+
+                <!-- Dinas Luar -->
+                <div class="mb-3">
+                    <label class="form-label">Dinas Luar</label>
+                    <input type="number" class="form-control" id="dinas_luar" value="0" 
+                        oninput="cekInput('dinas_luar','ket_dinas_luar')">
+                </div>
+                <div class="mb-3" id="ket_dinas_luar" style="display:none;">
+                    <label class="form-label">Keterangan Dinas Luar</label>
+                    <textarea class="form-control" id="ket_dinas_luar_text" rows="3" 
+                            placeholder="Tuliskan keterangan dinas luar..."></textarea>
+                </div>
+
+                <script>
+                    function cekInput(inputId, boxId) {
+                        var nilai = parseInt(document.getElementById(inputId).value) || 0;
+                        var box = document.getElementById(boxId);
+
+                        if (nilai !== 0) {
+                            box.style.display = "block"; // tampilkan textarea
+                        } else {
+                            box.style.display = "none";  // sembunyikan textarea
+                            // reset isi textarea di dalam box
+                            var textarea = box.querySelector("textarea");
+                            if (textarea) textarea.value = "";
+                        }
+                    }
+                </script>
+
+                 <div class="mb-3">
+                    <label class="form-label">Pembina Apel</label>
+                    <input type="Text" class="form-control" id="pembina_apel">
+                </div>
+                 <div class="mb-3">
+                    <label class="form-label">Komandan apel</label>
+                    <input type="Text" class="form-control" id="komandan_apel">
+                </div>
+                <div>
+                    <label class="form-label">Amanat Apel</label>
+                    <textarea class="form-control" id="amanat_apel" rows="3" 
+                            placeholder="Tuliskan Amanat Apel...">1. Terimakasih untuk petugas yg datang tepat waktu mengikuti apel dan mengucapkan selamat datang untuk pegawai yang sudah menyelesaikan BKO Nusakambangan.
+2. ⁠Diharapkan di tahun baru ini seluruh pegawai bisa meningkatkan kinerja dan kedisiplinan dalam bekerja dan pelaksanan apel
+3. ⁠Diberitahukan kepada seluruh pegawai untuk mengikuti zoom apel bersama kementrian jam 13.00 di aula Rutan Kelas IIB Jepara</textarea>
+                </div>
+                
+
+
+
+
+                
+
+                
+                
+
+
+                <a class="send_form" id="send_form" href="javascript:void" type="submit" title="Send to Whatsapp"> <i class="fa fa-paper-plane"></i>  Kirim</a>
+
+                </fieldset>
+           
+
+    
+            </form>
+            <br><br>
+    </div>
+    
+    <script type="text/javascript">
+    //<![CDATA[
+    $(document).on('click', '.send_form', function () {
+        var input_hari = document.getElementById('hari');
+
+        /* Whatsapp Settings */
+        var walink = 'https://web.whatsapp.com/send',
+            phone = '', 
+            text_yes = 'Sedang diproses...',
+            text_no = 'Harap isi Hari dan Tanggal terlebih dahulu.';
+
+        /* Smartphone Support */
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            var walink = 'whatsapp://send';
+        }
+
+        if ("" != input_hari.value && "" != $("#tanggal").val()) {
+
+            /* 1. AMBIL NILAI DARI FORM INPUT */
+            // Header
+            var val_hari = $("#hari").val();
+            var val_tanggal = $("#tanggal").val();
+
+            // Statistik Utama
+            var val_total_pegawai = $("#jumlah_pegawai").val();
+            var val_hadir = $("#hadir_apel").val();
+            var val_kurang = $("#tidak_apel").val();
+
+            // Rincian Hadir
+            var val_pejabat = $("#pejabat_struktural").val();
+            var val_staff = $("#staff").val();
+            var val_keamanan = $("#petugas_keamanan").val();
+            var val_bko = $("#bko_nk").val();
+            var val_poltekip = $("#poltekip").val();
+            var val_cpns = $("#cpns").val();
+            var val_magang = $("#magang").val();
+
+            // Petugas Apel
+            var val_pembina = $("#pembina_apel").val();
+            var val_komandan = $("#komandan_apel").val();
+            
+            // --- PERBAIKAN 1: AMANAT APEL (Handle Enter) ---
+            // .replace(/\n/g, '%0A') mengubah semua enter menjadi kode baris baru WA
+            var val_amanat = $("#amanat_apel").val().replace(/\n/g, '%0A');
+
+            /* 2. LOGIKA MENYUSUN KETERANGAN */
+            var list_keterangan = "";
+
+            // Fungsi helper untuk cek dan tambah text
+            function addKet(idJumlah, idText, label) {
+                var jml = parseInt($("#" + idJumlah).val()) || 0;
+                
+                // --- PERBAIKAN 2: KETERANGAN (Handle Enter) ---
+                // Mengambil nilai text dan merubah enter menjadi %0A
+                var ket = $("#" + idText).val().replace(/\n/g, '%0A'); 
+
+                if (jml > 0) {
+                    list_keterangan += '- ' + label + ' : ' + jml + ' orang';
+                    if (ket !== "") {
+                        // Jika ada enter di keterangan, formatnya akan rapi di WA
+                        list_keterangan += ' %0A' + ket + '';
+                    }
+                    list_keterangan += '%0A';
+                }
+            }
+
+            addKet('terlambat', 'ket_terlambat_text', 'Terlambat');
+            addKet('lepas_piket', 'ket_lepas_piket_text', 'Lepas Piket');
+            addKet('sakit', 'ket_sakit_text', 'Sakit');
+            addKet('cuti', 'ket_cuti_text', 'Cuti');
+            addKet('izin', 'ket_izin_text', 'Izin');
+            addKet('bantuan_jaga', 'ket_bantuan_jaga_text', 'Bantuan Jaga');
+            addKet('piket_siang', 'ket_piket_siang_text', 'Piket Siang');
+            addKet('dinas_luar', 'ket_dinas_luar_text', 'Dinas Luar');
+
+            if (list_keterangan === "") {
+                list_keterangan = "- Nihil%0A";
+            }
+
+            /* 3. SUSUN FORMAT PESAN WHATSAPP */
+            var message_text = 
+                '*LAPORAN ATENSI PIMPINAN*' + '%0A' +
+                'Yth. Kepala Kantor Wilayah Kementerian Hukum dan HAM Jateng' + '%0A' +
+                '%0A' +
+                '*I. KEGIATAN*' + '%0A' +
+                'Apel Pagi Pegawai' + '%0A' +
+                '%0A' +
+                '*II. WAKTU*' + '%0A' +
+                'Hari/Tgl : ' + val_hari + ', ' + val_tanggal + '%0A' +
+                '%0A' +
+                '*III. KEKUATAN PERSONIL*' + '%0A' +
+                'Total Pegawai : ' + val_total_pegawai + ' orang' + '%0A' +
+                'Hadir : ' + val_hadir + ' orang' + '%0A' +
+                'Kurang : ' + val_kurang + ' orang' + '%0A' +
+                '%0A' +
+                '*IV. RINCIAN KEHADIRAN*' + '%0A' +
+                '- Pejabat Struktural : ' + val_pejabat + '%0A' +
+                '- Staff : ' + val_staff + '%0A' +
+                '- Petugas Keamanan : ' + val_keamanan + '%0A' +
+                '- BKO NK : ' + val_bko + '%0A' +
+                '- Poltekip : ' + val_poltekip + '%0A' +
+                '- CPNS : ' + val_cpns + '%0A' +
+                '- Magang : ' + val_magang + '%0A' +
+                '%0A' +
+                '*V. KETERANGAN (KURANG)*' + '%0A' +
+                list_keterangan + 
+                '%0A' +
+                '*VI. PETUGAS APEL*' + '%0A' +
+                '- Pembina : ' + val_pembina + '%0A' +
+                '- Komandan : ' + val_komandan + '%0A' +
+                '%0A' +
+                '*VII. AMANAT PEMBINA APEL*' + '%0A' +
+                val_amanat + '%0A' + 
+                '%0A' +
+                'Demikian laporan yang dapat kami sampaikan, mohon petunjuk dan arahan.' + '%0A';
+
+            /* Final Whatsapp URL */
+            var blanter_whatsapp = walink + '?phone=' + phone + '&text=' + message_text;
+
+            /* Whatsapp Window Open */
+            window.open(blanter_whatsapp, '_blank');
+            document.getElementById("text-info").innerHTML = '<span class="yes">' + text_yes + '</span>';
+        } else {
+            document.getElementById("text-info").innerHTML = '<span class="no">' + text_no + '</span>';
+        }
+    });
+    //]]>
+</script>
+    
+    </body>
+    
+    </HTML>
