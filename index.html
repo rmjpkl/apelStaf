@@ -278,10 +278,7 @@
                 </div>
                 
 
-
-
-
-                
+             
 
                 
                 
@@ -378,21 +375,16 @@
 
             /* 3. SUSUN FORMAT PESAN WHATSAPP */
             var message_text = 
-                '*LAPORAN ATENSI PIMPINAN*' + '%0A' +
-                'Yth. Kepala Kantor Wilayah Kementerian Hukum dan HAM Jateng' + '%0A' +
-                '%0A' +
-                '*I. KEGIATAN*' + '%0A' +
-                'Apel Pagi Pegawai' + '%0A' +
-                '%0A' +
-                '*II. WAKTU*' + '%0A' +
+                '*LAPORAN APEL PEGAWAI RUTAN JEPARA*' + '%0A' +
                 'Hari/Tgl : ' + val_hari + ', ' + val_tanggal + '%0A' +
                 '%0A' +
-                '*III. KEKUATAN PERSONIL*' + '%0A' +
-                'Total Pegawai : ' + val_total_pegawai + ' orang' + '%0A' +
+                '*I. KEKUATAN PERSONEL*' + '%0A' +
+                'Jumlah pegawai : ' + val_total_pegawai + ' orang' + '%0A' +
                 'Hadir : ' + val_hadir + ' orang' + '%0A' +
-                'Kurang : ' + val_kurang + ' orang' + '%0A' +
+                'Tidak hadir : ' + val_kurang + ' orang' + '%0A' +
                 '%0A' +
-                '*IV. RINCIAN KEHADIRAN*' + '%0A' +
+
+                '*II. RINCIAN KEHADIRAN*' + '%0A' +
                 '- Pejabat Struktural : ' + val_pejabat + '%0A' +
                 '- Staff : ' + val_staff + '%0A' +
                 '- Petugas Keamanan : ' + val_keamanan + '%0A' +
@@ -401,17 +393,23 @@
                 '- CPNS : ' + val_cpns + '%0A' +
                 '- Magang : ' + val_magang + '%0A' +
                 '%0A' +
-                '*V. KETERANGAN (KURANG)*' + '%0A' +
+                '*III. KETERANGAN*' + '%0A' +
                 list_keterangan + 
                 '%0A' +
-                '*VI. PETUGAS APEL*' + '%0A' +
+                '*IV. PETUGAS APEL*' + '%0A' +
                 '- Pembina : ' + val_pembina + '%0A' +
                 '- Komandan : ' + val_komandan + '%0A' +
                 '%0A' +
-                '*VII. AMANAT PEMBINA APEL*' + '%0A' +
+                '*V. AMANAT*' + '%0A' +
                 val_amanat + '%0A' + 
                 '%0A' +
-                'Demikian laporan yang dapat kami sampaikan, mohon petunjuk dan arahan.' + '%0A';
+                'Demikian laporan yang dapat kami sampaikan, mohon petunjuk dan arahan.' + '%0A'+ 
+                '%0A' +
+                'Kasubsi Pengelolaan' + '%0A' +
+                + '%0A' +
+                + 'Ttd' +
+                + '%0A' +
+                + 'Mono';
 
             /* Final Whatsapp URL */
             var blanter_whatsapp = walink + '?phone=' + phone + '&text=' + message_text;
